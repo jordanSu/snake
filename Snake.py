@@ -72,17 +72,20 @@ while True:
     elif direction == 'down':
         snakePosition[1] += 20
     snakeSegments.insert(0,list(snakePosition))
-    
+
+    # if snake ate the raspberry
     if snakePosition == raspberryPosition:
         raspberrySpawned = False
     else:
         snakeSegments.pop()
 
+    # if snake is out of area
     if snakePosition[0] > 620 or snakePosition[0] < 0:
         gameover()
     elif snakePosition[1] > 460 or snakePosition[1] < 0:
         gameover()
 
+    # check if snake eats itself
     for snakeBody in snakeSegments[1:]:
         if snakePosition[0] == snakeBody[0] and snakePosition[1] == snakeBody[1]:
             gameover()
@@ -93,12 +96,14 @@ while True:
         y = random.randrange(1,24)
         raspberryPosition = [int(x*20),int(y*20)]
         raspberrySpawned = 1
+
+    # draw the surface    
     playSurface.fill(blackColor)
     for position in snakeSegments:
         pygame.draw.rect(playSurface, whiteColor, Rect(position[0],position[1],20,20))
     pygame.draw.circle(playSurface, redColor, (raspberryPosition[0]+10, raspberryPosition[1]+10), 10)
     pygame.display.flip()
 
-    fpsClock.tick(5)    
+    fpsClock.tick(5)  
 
 
