@@ -1,4 +1,4 @@
-
+#!/usr/bin/python
 import pygame, sys, time, random
 from pygame.locals import *
 
@@ -15,10 +15,11 @@ blackColor = pygame.Color(0,0,0)
 whiteColor = pygame.Color(255,255,255)
 greyColor = pygame.Color(150,150,150)
 
+#some variable pre-defined
 snakePosition = [100,100]
 snakeSegments = [[100,100],[80,100],[60,100]]
 raspberryPosition = [300,300]
-raspberrySpawned = 1
+raspberrySpawned = True
 direction = "right"
 changeDirection = direction
 
@@ -73,7 +74,7 @@ while True:
     snakeSegments.insert(0,list(snakePosition))
     
     if snakePosition == raspberryPosition:
-        raspberrySpawned = 0
+        raspberrySpawned = False
     else:
         snakeSegments.pop()
 
@@ -85,8 +86,9 @@ while True:
     for snakeBody in snakeSegments[1:]:
         if snakePosition[0] == snakeBody[0] and snakePosition[1] == snakeBody[1]:
             gameover()
-    
-    if raspberrySpawned == 0:
+
+    # spawn a new raspberry
+    if raspberrySpawned == False:
         x = random.randrange(1,32)
         y = random.randrange(1,24)
         raspberryPosition = [int(x*20),int(y*20)]
@@ -94,7 +96,7 @@ while True:
     playSurface.fill(blackColor)
     for position in snakeSegments:
         pygame.draw.rect(playSurface, whiteColor, Rect(position[0],position[1],20,20))
-    pygame.draw.rect(playSurface, redColor, Rect(raspberryPosition[0], raspberryPosition[1], 20, 20))
+    pygame.draw.circle(playSurface, redColor, (raspberryPosition[0]+10, raspberryPosition[1]+10), 10)
     pygame.display.flip()
 
     fpsClock.tick(5)    
