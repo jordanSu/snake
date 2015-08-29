@@ -75,6 +75,15 @@ while True:
         raspberrySpawned = 0
     else:
         snakeSegments.pop()
+
+    if snakePosition[0] > 620 or snakePosition[0] < 0:
+        gameover()
+    elif snakePosition[1] > 460 or snakePosition[1] < 0:
+        gameover()
+
+    for snakeBody in snakeSegments[1:]:
+        if snakePosition[0] == snakeBody[0] and snakePosition[1] == snakeBody[1]:
+            gameover()
     
     if raspberrySpawned == 0:
         x = random.randrange(1,32)
