@@ -7,6 +7,7 @@ pygame.init()
 fpsClock = pygame.time.Clock()  # game speed control
 playSurface = pygame.display.set_mode((640,480))  # canvas to display
 pygame.display.set_caption("Snake Game")
+pygame.display.set_icon(pygame.image.load('img/icon.png'))
 
 # define some color
 redColor = pygame.Color(255,0,0)
