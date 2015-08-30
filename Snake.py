@@ -22,6 +22,16 @@ raspberryPosition = [300,300]
 raspberrySpawned = True
 direction = "right"
 changeDirection = direction
+speed = 1
+stopWatch = 0
+score = 0
+
+def showscore():
+    scoreFont = pygame.font.Font("freesansbold.ttf",18)
+    scoreSurface = scoreFont.render("Score:" + str(score),True,whiteColor)
+    scoreRect = scoreSurface.get_rect()
+    scoreRect.midtop = (580,460)
+    playSurface.blit(scoreSurface,scoreRect)
 
 def gameover():
     gameOverFont = pygame.font.Font("freesansbold.ttf",72)
@@ -30,7 +40,7 @@ def gameover():
     gameOverRect.midtop = (320,10)
     playSurface.blit(gameOverSurface,gameOverRect)
     pygame.display.flip()
-    time.sleep(5)
+    time.sleep(2)
     pygame.quit()
     sys.exit()
 
@@ -63,22 +73,27 @@ while True:
         direction = changeDirection
 
     # move a block foward
-    if direction == 'right':
-        snakePosition[0] += 20
-    elif direction == 'left':
-        snakePosition[0] -= 20
-    elif direction == 'up':
-        snakePosition[1] -= 20
-    elif direction == 'down':
-        snakePosition[1] += 20
-    snakeSegments.insert(0,list(snakePosition))
+    if stopWatch % 20 == 0:
+        if direction == 'right':
+            snakePosition[0] += 20
+        elif direction == 'left':
+            snakePosition[0] -= 20
+        elif direction == 'up':
+            snakePosition[1] -= 20
+        elif direction == 'down':
+            snakePosition[1] += 20
+        snakeSegments.insert(0,list(snakePosition))
 
-    # if snake ate the raspberry
-    if snakePosition == raspberryPosition:
-        raspberrySpawned = False
-    else:
-        snakeSegments.pop()
-
+        # if snake ate the raspberry
+        if snakePosition == raspberryPosition:
+            raspberrySpawned = False
+            speed += 1
+            score += 10
+        else:
+            snakeSegments.pop()
+        stopWatch = 1
+    stopWatch += 1
+    
     # if snake is out of area
     if snakePosition[0] > 620 or snakePosition[0] < 0:
         gameover()
@@ -97,13 +112,14 @@ while True:
         raspberryPosition = [int(x*20),int(y*20)]
         raspberrySpawned = 1
 
-    # draw the surface    
+    # draw the surface  
     playSurface.fill(blackColor)
     for position in snakeSegments:
         pygame.draw.rect(playSurface, whiteColor, Rect(position[0],position[1],20,20))
     pygame.draw.circle(playSurface, redColor, (raspberryPosition[0]+10, raspberryPosition[1]+10), 10)
+    showscore()
     pygame.display.flip()
 
-    fpsClock.tick(5)  
+    fpsClock.tick(200)  
 
 
