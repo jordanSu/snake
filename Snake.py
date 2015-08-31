@@ -22,9 +22,8 @@ snakeSegments = [[100,100],[80,100],[60,100]]
 raspberryPosition = [300,300]
 raspberrySpawned = True
 direction = "right"
-speed = 1
-stopWatch = 0
 score = 0
+speed = 5
 
 def showscore():
     scoreFont = pygame.font.Font("freesansbold.ttf",18)
@@ -61,7 +60,7 @@ while True:
                 direction = 'down'
             elif event.key == K_ESCAPE:
                 pygame.event.post(pygame.event.Event(QUIT))
-        
+
     # move a block foward
     if direction == 'right':
         snakePosition[0] += 20
@@ -76,11 +75,13 @@ while True:
     # if snake ate the raspberry
     if snakePosition == raspberryPosition:
         raspberrySpawned = False
-        speed += 1
         score += 10
+        # speed up every 50 points
+        if score % 50 == 0:
+            speed += 5
     else:
         snakeSegments.pop()
-    
+
     # if snake is out of area
     if snakePosition[0] > 620 or snakePosition[0] < 0:
         gameover()
@@ -99,7 +100,7 @@ while True:
         raspberryPosition = [int(x*20),int(y*20)]
         raspberrySpawned = 1
 
-    # draw the surface  
+    # draw the surface
     playSurface.fill(blackColor)
     for position in snakeSegments:
         pygame.draw.rect(playSurface, whiteColor, Rect(position[0],position[1],20,20))
@@ -107,6 +108,4 @@ while True:
     showscore()
     pygame.display.flip()
 
-    fpsClock.tick(10)  
-
-
+    fpsClock.tick(speed)
