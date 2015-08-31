@@ -25,6 +25,13 @@ direction = "right"
 score = 0
 speed = 5
 
+def speedwarning():
+    warningFont = pygame.font.Font("freesansbold.ttf",20)
+    warningSurface = warningFont.render("Warning! Ready to speed up!" ,True ,redColor)
+    warningRect = warningSurface.get_rect()
+    warningRect.midtop = (320,10)
+    playSurface.blit(warningSurface,warningRect)
+
 def showscore():
     scoreFont = pygame.font.Font("freesansbold.ttf",18)
     scoreSurface = scoreFont.render("Score:" + str(score),True,yellowColor)
@@ -106,6 +113,8 @@ while True:
         pygame.draw.rect(playSurface, whiteColor, Rect(position[0],position[1],20,20))
     pygame.draw.circle(playSurface, redColor, (raspberryPosition[0]+10, raspberryPosition[1]+10), 10)
     showscore()
+    if (score + 10) % 50 == 0:
+        speedwarning()
     pygame.display.flip()
 
     fpsClock.tick(speed)
