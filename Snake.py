@@ -24,6 +24,7 @@ raspberrySpawned = True
 direction = "right"
 score = 0
 speed = 5
+stopWatch = 1
 
 def speedwarning():
     warningFont = pygame.font.Font("freesansbold.ttf",20)
@@ -113,8 +114,11 @@ while True:
         pygame.draw.rect(playSurface, whiteColor, Rect(position[0],position[1],20,20))
     pygame.draw.circle(playSurface, redColor, (raspberryPosition[0]+10, raspberryPosition[1]+10), 10)
     showscore()
-    if (score + 10) % 50 == 0:
+    if (score + 10) % 50 == 0 and stopWatch % 3 == 0:
         speedwarning()
+        stopWatch = 1
+    stopWatch += 1
+
     pygame.display.flip()
 
     fpsClock.tick(speed)
