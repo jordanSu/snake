@@ -63,26 +63,23 @@ while True:
                 pygame.event.post(pygame.event.Event(QUIT))
         
     # move a block foward
-    if stopWatch % (30-speed) == 0:
-        if direction == 'right':
-            snakePosition[0] += 20
-        elif direction == 'left':
-            snakePosition[0] -= 20
-        elif direction == 'up':
-            snakePosition[1] -= 20
-        elif direction == 'down':
-            snakePosition[1] += 20
-        snakeSegments.insert(0,list(snakePosition))
+    if direction == 'right':
+        snakePosition[0] += 20
+    elif direction == 'left':
+        snakePosition[0] -= 20
+    elif direction == 'up':
+        snakePosition[1] -= 20
+    elif direction == 'down':
+        snakePosition[1] += 20
+    snakeSegments.insert(0,list(snakePosition))
 
-        # if snake ate the raspberry
-        if snakePosition == raspberryPosition:
-            raspberrySpawned = False
-            speed += 1
-            score += 10
-        else:
-            snakeSegments.pop()
-        stopWatch = 1
-    stopWatch += 1
+    # if snake ate the raspberry
+    if snakePosition == raspberryPosition:
+        raspberrySpawned = False
+        speed += 1
+        score += 10
+    else:
+        snakeSegments.pop()
     
     # if snake is out of area
     if snakePosition[0] > 620 or snakePosition[0] < 0:
@@ -110,6 +107,6 @@ while True:
     showscore()
     pygame.display.flip()
 
-    fpsClock.tick(200)  
+    fpsClock.tick(10)  
 
 
