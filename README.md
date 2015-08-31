@@ -13,15 +13,15 @@ and have fun!!!
 
 How to play
 =====
-Control your snake to eat the as many raspberries as you can 
+Control your snake to eat the as many raspberries as you can <br>
 Be careful that the speed will become faster
 
 How to control
 =====
-↑(W): make snake go upward
-↓(S): make snake go downward
-←(A): make snake turn left
-→(D): make snake turn right
+↑(W): make snake go upward <br>
+↓(S): make snake go downward <br>
+←(A): make snake turn left <br>
+→(D): make snake turn right <br>
 
 Author
 =====
