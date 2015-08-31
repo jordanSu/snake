@@ -11,6 +11,18 @@ then...just run the command below:<br>
 <code>$ ./snake.py</code><br>
 and have fun!!!
 
+How to play
+=====
+Control your snake to eat the as many raspberries as you can 
+Be careful that the speed will become faster
+
+How to control
+=====
+↑(W): make snake go upward
+↓(S): make snake go downward
+←(A): make snake turn left
+→(D): make snake turn right
+
 Author
 =====
 jordanSu
