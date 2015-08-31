@@ -14,6 +14,7 @@ redColor = pygame.Color(255,0,0)
 blackColor = pygame.Color(0,0,0)
 whiteColor = pygame.Color(255,255,255)
 greyColor = pygame.Color(150,150,150)
+yellowColor = pygame.Color(255,255,0)
 
 #some variable pre-defined
 snakePosition = [100,100]
@@ -21,14 +22,13 @@ snakeSegments = [[100,100],[80,100],[60,100]]
 raspberryPosition = [300,300]
 raspberrySpawned = True
 direction = "right"
-changeDirection = direction
 speed = 1
 stopWatch = 0
 score = 0
 
 def showscore():
     scoreFont = pygame.font.Font("freesansbold.ttf",18)
-    scoreSurface = scoreFont.render("Score:" + str(score),True,whiteColor)
+    scoreSurface = scoreFont.render("Score:" + str(score),True,yellowColor)
     scoreRect = scoreSurface.get_rect()
     scoreRect.midtop = (580,460)
     playSurface.blit(scoreSurface,scoreRect)
@@ -51,29 +51,19 @@ while True:
             sys.exit()
         elif event.type == KEYDOWN:
             # detect which key be pressed
-            if event.key == K_RIGHT or event.key == ord('d'):
-                changeDirection = 'right'
-            elif event.key == K_LEFT or event.key == ord('a'):
-                changeDirection = 'left'
-            elif event.key == K_UP or event.key == ord('w'):
-                changeDirection = 'up'
-            elif event.key == K_DOWN or event.key == ord('s'):
-                changeDirection = 'down'
+            if (event.key == K_RIGHT or event.key == ord('d')) and not direction == 'left':
+                direction = 'right'
+            elif (event.key == K_LEFT or event.key == ord('a')) and not direction == 'right':
+                direction = 'left'
+            elif (event.key == K_UP or event.key == ord('w')) and not direction == 'down':
+                direction = 'up'
+            elif (event.key == K_DOWN or event.key == ord('s')) and not direction == 'up':
+                direction = 'down'
             elif event.key == K_ESCAPE:
                 pygame.event.post(pygame.event.Event(QUIT))
-
-    # have to notice that snake cannot turn head back
-    if changeDirection == 'right' and not direction == 'left':
-        direction = changeDirection
-    if changeDirection == 'left' and not direction == 'right':
-        direction = changeDirection
-    if changeDirection == 'up' and not direction == 'down':
-        direction = changeDirection
-    if changeDirection == 'down' and not direction == 'up':
-        direction = changeDirection
-
+        
     # move a block foward
-    if stopWatch % 20 == 0:
+    if stopWatch % (30-speed) == 0:
         if direction == 'right':
             snakePosition[0] += 20
         elif direction == 'left':
