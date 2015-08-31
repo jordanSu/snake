@@ -41,11 +41,17 @@ def showscore():
     playSurface.blit(scoreSurface,scoreRect)
 
 def gameover():
+    # "Game Over!"
     gameOverFont = pygame.font.Font("freesansbold.ttf",72)
     gameOverSurface = gameOverFont.render("Game Over!",True,greyColor)
     gameOverRect = gameOverSurface.get_rect()
     gameOverRect.midtop = (320,10)
+    # "Score:    "
+    scoreSurface = gameOverFont.render("Score:" + str(score),True,yellowColor)
+    scoreRect = scoreSurface.get_rect()
+    scoreRect.midtop = (320,100)
     playSurface.blit(gameOverSurface,gameOverRect)
+    playSurface.blit(scoreSurface,scoreRect)
     pygame.display.flip()
     time.sleep(2)
     pygame.quit()
