@@ -86,7 +86,7 @@ while True:
         score += 10
         # speed up every 50 points
         if score % 50 == 0:
-            speed += 5
+            speed += 2
     else:
         snakeSegments.pop()
 
